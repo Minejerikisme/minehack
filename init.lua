@@ -59,8 +59,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
         full_health(pname)
     end
 
-    if fields.t then
-        showtpa(pname)
-    end
+
 end)
 
