@@ -1,4 +1,5 @@
 minehack = {}
+local basic_hacks = require(hacks.basichacks.lua)
 --This handles the initialization of the mod.
 --This also handles the loading of the config file.
 --And the handling of gui
@@ -44,6 +45,7 @@ minetest.register_chatcommand("hack", {
     func = function(name)
         Name = name
         minehack.show_to(name)
+        basic_hacks.test()
     end,
 })
 
