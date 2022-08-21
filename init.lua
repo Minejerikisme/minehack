@@ -1,5 +1,7 @@
 minehack = {}
-
+--This handles the initialization of the mod.
+--This also handles the loading of the config file.
+--And the handling of gui
 
 function minehack.getbackground()
 local background = {
@@ -11,7 +13,7 @@ local background = {
 }
 return table.concat(background, "")
 end
-
+--[[
 function minehack.gettp()
 local tp = {
     "formspec_version[6]",
@@ -24,40 +26,27 @@ local tp = {
 } 
 return table.concat(tp, "")
 end
-
+--]]
 
 local function full_health(name)
 local player = minetest.get_player_by_name(name)
 player:set_hp(20)
 end
 
-local function tp(x,y,z,name)
-local player = minetest.get_player_by_name(name)
-player:setpos({x=x,y=y,z=z})
-end
 
 
 function minehack.show_to(name)
     minetest.show_formspec(name, "minehack:main", minehack.getbackground(name))
 end
 
-function minehack.show_to2(name)
-    minetest.show_formspec(name, "minehack:tpf", minehack.gettp(name))
-end
 
 minetest.register_chatcommand("hack", {
     func = function(name)
+        Name = name
         minehack.show_to(name)
     end,
 })
 
-minetest.register_chatcommand("tp", {
-tp(100,100,100,pname)
-})
-
-local function showtpa(name)
-minehack.show_to2(name)
-end
 
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
@@ -75,16 +64,3 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
     end
 end)
 
-minetest.register_on_player_receive_fields(function(player, formname, fields)
-    print("getit")
-    if formname ~= "minehack.tpf" then
-        return
-    end
-
-    if fields.tps then
-        local pname = player:get_player_name()
-        --print("teleporting to X:"..fields.xb.."Y: "..fields.yb.."Z: "..fields.zb)
-        minetest.chat_send_all(pname .. " guessed " .. fields.number)
-        --tp(fields.xb,fields.yb,fields.zb,pname)
-    end
-end)
